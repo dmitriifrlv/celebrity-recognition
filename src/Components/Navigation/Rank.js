@@ -1,14 +1,15 @@
 import React from 'react';
 
-const Rank =() => {
+const Rank =(props) => {
     return (
         <div>
             <div>
-                You rank is 
+                You are looking at {props.name} 
             </div>
         </div>
     )
 }
 
+Rank.defaultProps = {name:'...'}
 export default Rank
 
