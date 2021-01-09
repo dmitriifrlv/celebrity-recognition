@@ -1,0 +1,28 @@
+body{
+    color: #0d6efd;
+    color: black;
+    color: #002f75;
+}
+
+.input-group>input{
+    height: 2.5rem;
+    color: #002f75;
+}
+
+.input-group>.btn,
+nav>.btn {
+    height: 2.5rem;
+    color: #002f75;
+    border-color: #002f75;
+}
+.input-group>.btn::after {
+ color: white;
+}
+.name  {
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.col-md-6 {
+    margin-top: 1rem;
+}

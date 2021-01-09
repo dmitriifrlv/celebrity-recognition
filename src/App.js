@@ -1,4 +1,3 @@
-import Clarifai from 'clarifai';
 import './App.css';
 import React, { Component } from 'react';
 import Navigation from './Components/Navigation/Navigation';
@@ -7,11 +6,9 @@ import ImageLinkForm from './Components/Navigation/ImageLinkForm';
 import Rank from './Components/Navigation/Rank';
 import Particles from 'react-particles-js';
 import FaceRecognition from './Components/FaceRecognition/FaceRecognition';
-
-
-const app = new Clarifai.App({
- apiKey: 'c8e4786b1c2348ac940c71517facda16'
-});
+import Signin from './Components/Signin/Signin';
+import Register from './Components/Register/Register';
+import Welcome from './Components/StartPage/Welcome'
 
   const particles = {
     "particles": {
@@ -28,15 +25,36 @@ const app = new Clarifai.App({
     }
 }
 
+const initialState = {
+    input: '',
+    imageUrl: '',
+    box: {},
+    name: '',
+    // route: 'signin',
+    route: 'welcome',
+    user: {
+      id: '',
+      username: '',
+      email: '',
+      entries: 0,
+      joined: ''
+    } 
+}
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      name: ''
-    }
+    this.state = initialState
+  }
+
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      username: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
   }
 
   calculateFaceLocation = (data) => {
@@ -66,26 +84,71 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models
-      .predict(
-        Clarifai.CELEBRITY_MODEL, 
-        this.state.input)
-        .then(response => console.log(response))
-      // .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-      .catch(err => console.log(err));
-  }
+      fetch('https://warm-retreat-42776.herokuapp.com/imageurl', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
+        .then(response => {
+          console.log('hi', response)
+          if (response) {
+            fetch('https://warm-retreat-42776.herokuapp.com/image', {
+              method: 'put',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                id: this.state.user.id
+              })
+            })
+              .then(response => response.json())
+              .then(count => {
+                this.setState(Object.assign(this.state.user, { entries: count}))
+              })
+              .catch(console.log)
+          }
+          this.displayFaceBox(this.calculateFaceLocation(response))
+        })
+        .catch(err => console.log(err));
+    }
  
+  onRouteChange = (route) => {
+    if (route === 'signout' || route ==='signin' || route === 'welcome') {
+      this.setState(initialState)
+    }
+    this.setState({route:route})
+  }
+
   render() {
+    const {route, name, box, imageUrl} = this.state;
     return(
       <div className="App">
         <Particles className="particles"
         params={particles} /> 
-          <Navigation />
-        <Logo/>
-        <Rank name={this.state.name}/>
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-        
+        { route === 'home' 
+          ? <div>
+          <Navigation onRouteChange={this.onRouteChange}/>
+          <Logo/>
+          <Rank 
+          name = {name} 
+          username={this.state.user.username} 
+          entries = {this.state.user.entries}/>
+          <ImageLinkForm 
+          onInputChange={this.onInputChange} 
+          onButtonSubmit={this.onButtonSubmit}/>
+          <FaceRecognition 
+          box={box} 
+          imageUrl={imageUrl}/>
+          </div> 
+          : (
+            route === 'signin' 
+          ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+          : (route === 'welcome' 
+          ? <Welcome onRouteChange={this.onRouteChange}/>
+          :<Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>)
+          )
+        }
       </div>
     )
   }

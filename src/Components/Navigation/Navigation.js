@@ -1,9 +1,10 @@
 import React from 'react';
+import './input.css';
 
-const Navigation =() => {
+const Navigation =({ onRouteChange }) => {
     return (
         <nav >
-            <p>Sign Out</p>
+            <button className="btn btn-outline-primary mt-1" onClick = {()=>onRouteChange('signin')}>Sign Out</button>
         </nav>
     )
 }

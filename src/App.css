@@ -1,3 +1,9 @@
+body,html {
+  font-family: Orbitron, sans-serif;
+  font-family: Tomorrow;
+  /* font-family: 'Bungee Outline'; */
+  font-size: 18px;
+}
 .App {
   text-align: center;
 }
