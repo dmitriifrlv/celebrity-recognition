@@ -1,6 +1,6 @@
 {
   "name": "facerec",
-  "homepage": "https://dmitriifrlv.github.io/celebrity-recognition-app/",
+  "homepage": "https://dmitriifrlv.github.io/celebrity-recognition",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
