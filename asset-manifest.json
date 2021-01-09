@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/celebrity-recognition/static/css/main.a6cdea78.chunk.css",
+    "main.css": "/celebrity-recognition/static/css/main.749f78a4.chunk.css",
     "main.js": "/celebrity-recognition/static/js/main.2a352ada.chunk.js",
     "main.js.map": "/celebrity-recognition/static/js/main.2a352ada.chunk.js.map",
     "runtime-main.js": "/celebrity-recognition/static/js/runtime-main.ed400fec.js",
@@ -10,13 +10,13 @@
     "static/js/3.4c8d96c8.chunk.js": "/celebrity-recognition/static/js/3.4c8d96c8.chunk.js",
     "static/js/3.4c8d96c8.chunk.js.map": "/celebrity-recognition/static/js/3.4c8d96c8.chunk.js.map",
     "index.html": "/celebrity-recognition/index.html",
-    "static/css/main.a6cdea78.chunk.css.map": "/celebrity-recognition/static/css/main.a6cdea78.chunk.css.map",
+    "static/css/main.749f78a4.chunk.css.map": "/celebrity-recognition/static/css/main.749f78a4.chunk.css.map",
     "static/js/2.da87a56b.chunk.js.LICENSE.txt": "/celebrity-recognition/static/js/2.da87a56b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ed400fec.js",
     "static/js/2.da87a56b.chunk.js",
-    "static/css/main.a6cdea78.chunk.css",
+    "static/css/main.749f78a4.chunk.css",
     "static/js/main.2a352ada.chunk.js"
   ]
 }
